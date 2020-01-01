@@ -4,6 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use App\Utils\Responser;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +53,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+
+        /**
+         * Standart Exception Handlerımızı saklıyoruz.
+         * return parent::render($request, $exception);
+         */
+        
+        $status = $exception->getStatusCode();
+        $msg = $exception->getMessage();
+
+        if ($exception instanceof NotFoundHttpException) {
+            $msg = __('Geçersiz endpoint');
+        }
+
+        $res = new Responser;
+        return $res->status($status)->errorMessage($msg)->write();
     }
 }
