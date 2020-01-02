@@ -63,7 +63,7 @@ class Handler extends ExceptionHandler
         $msg = $exception->getMessage();
 
         if ($exception instanceof NotFoundHttpException) {
-            $msg = __('Geçersiz endpoint');
+            $msg = Responser::MSG_ENDPOINT_ERROR;
         }
 
         $res = new Responser;

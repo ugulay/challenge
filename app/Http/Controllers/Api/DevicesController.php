@@ -74,18 +74,18 @@ class DevicesController extends Controller
     private function updateControl(Responser $res, Request $request)
     {
 
-        $currentUserVersion = $request->header('Version') ?: null;
+        $currentUserVersion = $request->header('Version','');
 
         // Semver ile geçerli kullanıcı sürümünün kontrolü sağlanıyor.
         try {
             $currentUserVersion = new SemVer\Version($currentUserVersion);
         } catch (\Exception $e) {
-            abort(403, Responser::MSG_ERROR_VERSION_INCORRECT);
+            abort(403, Responser::MSG_ERROR_HEADER_VERSION_NOT_FOUND);
         }
 
         // Geçerli kullanıcı sürümü app sürümü arasındaki fark kontrol ediliyor.
         try {
-            $lastVersionData = Version::LastVersion();
+            $lastVersionData = Version::LastVersion() ?: '';
             $lastVersion = new SemVer\Version($lastVersionData->version);
         } catch (\Exception $e) {
             // DB Versions tablosundaki sürüm numarası geçersiz ise.

@@ -19,7 +19,9 @@ class Responser
 {
 
     const MSG_ERROR = 'Bir hata ile karşılaşıldı.';
+    const MSG_ENDPOINT_ERROR = 'Geçersiz endpoint.';
     const MSG_ITEM_NOT_FOUND = 'Obje bulunamadı.';
+    const MSG_ERROR_HEADER_VERSION_NOT_FOUND = 'Header içerisinde Version anahtarı tespit edilemedi (vMajor.Minor.Fix formatında olmalıdır)';
     const MSG_ERROR_VERSION_INCORRECT = 'Sürüm kontrolü sırasında bir hata meydana geldi.';
     const MSG_ERROR_VERSION_FAILED = 'Sistem sürümü kontrol edilemedi.';
     const MSG_NEED_UPDATE = 'Uygulamanızı güncellemeniz gerekmektedir.';
