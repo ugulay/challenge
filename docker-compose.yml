@@ -15,32 +15,34 @@ services:
       - "DB_HOST=database"
       - "REDIS_HOST=cache"
 
-  # The Web Server -nginx
+  # The Web Server
   web:
     container_name: nginx_server
     build:
       context: ./
-      dockerfile: development/nginx.dockerfile
+      dockerfile: development/web.dockerfile
     volumes:
       - ./storage/logs/:/var/log/nginx
     ports:
-      - "80:80"
-      - "443:443"
+      - 8990:80
 
-  # The Database -mysql
+  # The Database
   database:
     container_name: mysql_database
     image: mysql:5.7
     volumes:
       - dbdata:/var/lib/mysql
     environment:
-      - "MYSQL_ALLOW_EMPTY_PASSWORD=true"
+      - "MYSQL_DATABASE=challenge"
+      - "MYSQL_USER=root"
+      - "MYSQL_PASSWORD=root"
+      - "MYSQL_ROOT_PASSWORD=root."
     ports:
-      - 3306:3306
+      - 8991:3306
 
-  #Redis
+    # redis
   cache:
-    image: redis:latest
+    image: redis:3.0-alpine
 
 volumes:
   dbdata:
