@@ -27,9 +27,9 @@ RUN composer install
 RUN php artisan config:clear
 RUN php artisan cache:clear
 RUN php artisan key:generate
-RUN php artisan migrate
+#RUN php artisan migrate
 RUN php artisan storage:link
-RUN php artisan db:seed
+#RUN php artisan db:seed
 RUN php artisan optimize
 
 #RUN php artisan serve
