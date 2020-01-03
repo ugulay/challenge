@@ -25,14 +25,9 @@ class FavoritesController extends Controller
         try {
 
             $device = $this->getDevice($this->getToken($request));
+            
+            $items = Favorite::device($device->id)->with('media')->get();
 
-            $query = Favorite::query();
-            $deviceQuery = $query->device($device->id);
-
-            $items = $deviceQuery->get();
-            foreach ($items as &$item) {
-                $item = $item->media;
-            }
         } catch (\Exception $e) {
             abort(500, Responser::MSG_ERROR);
         }

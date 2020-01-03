@@ -26,10 +26,12 @@ class CategoryController extends Controller
      * @param  \App\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($category_id)
     {
 
+        $data = Category::with('media')->find($category_id);
+
         $res = new Responser;
-        return $res->write($category, $category->media);
+        return $res->write($data);
     }
 }
